@@ -1,0 +1,50 @@
+\documentclass[10pt]{article}
+\usepackage{amsmath}
+\usepackage{float}
+\begin{document}
+
+\section{Introduction}
+
+The democratic third wave have generated a big political impact in Latin America. The region used to coups and military rule gave room to vibrant democracies with competitive elections and reasonable political and economic stability.  It is natural to suppose that this new democratic reality generate a impact in the way the general population identify itself politically.
+
+This initial research try to address this issue. We analyze the degree of politicization and polarization in eleven countries of the region: Argentina, Bolivia, Brazil, Chile, Colombia, Ecuador, Mexico, Paraguay, Peru, Uruguay and Venezuela. 
+
+We divided this blog post in three sections. The first is this small introduction. Second, is a brief a theoretical presentation and justification of the use of the data. Third, we will present a fixed effect analysis of the data to better comprehend the trends in the data. 
+
+\section{The importance of Left and Right}
+
+The definition of polarization and politicization is not so trivial as it may appears. Is it feasible to define ideologies in a multidimensional issue spaces where the set of preferences are so diverse? How can we cope such diversity in a unidimensional continuum of Left and Right?
+
+First, the Left and Right concepts are old and well-known. They are commonly acknowledge as the expression of political preferences. Second, they are vague enough to be able to represent many ideas. Therefore, `Left' and `Right' are important as self-identification concepts; a way to manifest your political position, identity.
+
+In this scenario, we can divide individuals in two groups. First, the politically indifferent ($_{R}I_{L}$). This is a person which manifesting any ideology does not generate a utility that justify the cost of taking a stand. The person do not see that taking a political identity as something relevant. Second, the politically eager ($_{R}R_{L} \ \textrm{or} \ _{L}R_{R}$). The cases where the individual understand that she receive some utility if she manifest some political identity either `Left' or `Right'.  
+
+We aim to to use data from the Latinobarometro to assert the degree of polarization in Latin America. To do so, we will use the variable of 
+`self identification of Left-Right'. We manipulate this data to indicate that goes from -5 to 5 where -5 is extreme left and 5 is extreme right. We do that with the assumption that the people which have not identify themselves with from -1 to -5 or from 1 to 5 are the non-ideological individuals \footnote{We consider in this group not only the ones who have answer 0 (5 in the original data), but all the other answers (e.g `I don't know') not only because this type of answer suits well with the argument of ideological indifference, but, also, makes the result presented more robust)}. From this data, we present the model as follow, Where $X_{i}$ is the observations:
+
+\begin{align}
+Y_{1}&=\frac{\Sigma |X_{i}|}{n} \\
+Y_{2}&=\sqrt{\frac{\Sigma (X_{i}-\overline{X})^2}{n-1}}
+\end{align}
+
+$Y_{1}$ is the mean of the absolute value of the `self-identification of Left-Right'. This means the level of politicization in a given country since is the distance, on average, that the country s from 0 ($_{R}I_{L}$). $Y_{2}$ is the standard error which indicate the degree of ideological polarization in a given country. Both values goes from 0 to, approximately, 5. 
+
+Although `politicization' and `polarization' seems, at the first glance, synonymous; they are independent concepts. We can imagine a society made by three individuals illustrated in set A (A=$\{$-5,-5,-5$\}$). Here the degree of politicization ($Y_{1}$) is 5, but the degree of polarization is 0. The set B (B=$\{$1,0,-1$\{$), in turn, have a $Y_{1}$ of only 0.667, but a $Y_{2}$ of 1. It is possible to have a high politicization and a low and polarization and, vice-versa.
+
+Empirically, it is reasonable to think of societies becoming more or less politicized without changing their degree of polarization. For example, the society as a whole assuming a Left's or Right's identity. In Latin America, one could say that similar situation might have happen recently with the `Pink tide', a sequence of of left-wing presidents taking power. To put this assumption to a test, we plot the correlation between politicization and polarization:
+
+As we can see, there is a strong correlation between the two. This, on one hand, generate evidences against the assumption of a Latin America's move to the Left. On the other hand, the strong correlation allow us to use polarization as a proxy for polarization (and vice-versa). Therefore, we you only use the variable polarization for the rest of this post. There are three different explanatory frameworks we present to understand polarization in Latin America.
+
+First, political institutions factors. We will use the data from Polity in two ways. One is how is usually used: as a continuous variable\footnote{Even though the makers of the data, the Center for Systemic Peace, raises questions to this use (Marshall, Gurr, Jaggers 2017)}. The other way is the difference between the polity value of a year minus the value of the year before. The first allows us to assert the impact of being more or less democratic to polarization; and the second if political shifts have affected polarization in Latin America. Second, socio-economic factors. We will use GDP per capita growth (annual \%) and GDP per capita, PPP (constant 2011 international \$). the former analyzes whether the variance of well-being affect polarization and the latter if rich (or poor) societies are more prone to be polarized. Third, political dynamics factor. This hypothesis try to assert the impact of the recent left-wing governments in Latin America. There are two dummy variables. One when the government was lead by a moderate left-wing president. The second when the president was a radical left-wing president. The definition of what were the moderate and radical left-wing governments comes from Casta\~{n}eda (2006).		
+
+\section{The evolution of Latin America's political polarization}
+
+The first question that we must make is if have any trend the political polarization in Latin America. The graph 02 does not looks very promising.
+
+
+The graph 02, in fact, is hiding a more complex pattern that goes along with the recent Latin America history. Dividing the period in three we see a pendulum behavior that goes along with period before the `pink tide', the peak of the left-wing governments and the current political and economic crisis:
+
+
+Hence, we will now present an data panel analysis with the variable for each of the periods to understand what factor better explain polarization in Latin America
+
+\end{document}

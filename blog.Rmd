@@ -1,0 +1,966 @@
+---
+title: "What are the causes of polarization of Latin America's politics?"
+author: "Raduan van Velthem Meira"
+date: "February 20, 2018"
+output: github_document
+---
+
+```{r, echo=F, eval=T}
+setwd("C:/Users/radua/OneDrive/code/Databank/Latinobarometro") # <- Set working directory
+lb95 <- read.csv("lb95.csv")
+lb96 <- read.csv("lb96.csv")
+lb97 <- read.csv("lb97.csv")
+lb98 <- read.csv("lb98.csv")
+lb00 <- read.csv("lb00.csv")
+lb01 <- read.csv("lb01.csv")
+lb02 <- read.csv("lb02.csv")
+lb03 <- read.csv("lb03.csv")
+lb04 <- read.csv("lb04.csv")
+lb05 <- read.csv("lb05.csv")
+lb06 <- read.csv("lb06.csv")
+lb07 <- read.csv("lb07.csv")
+lb08 <- read.csv("lb08.csv")
+lb09 <- read.csv("lb09.csv")
+lb10 <- read.csv("lb10.csv")
+lb11 <- read.csv("lb11.csv")
+lb13 <- read.csv("lb13.csv")
+lb15 <- read.csv("lb15.csv")
+lb16 <- read.csv("lb16.csv")
+
+setwd("C:/Users/radua/OneDrive/code/Databank/Polity")
+polity <- read.csv("polity_LA.csv")
+
+data <- polity
+
+data$Y1 <- NA
+data$Y2 <- NA
+data$Y3 <- NA
+
+data[1,]$Y1 <- mean(abs(lb95[lb95=="Argentina",]$LR))
+data[2,]$Y1 <- mean(abs(lb96[lb96=="Argentina",]$LR))
+data[3,]$Y1 <- mean(abs(lb97[lb97=="Argentina",]$LR))
+data[4,]$Y1 <- mean(abs(lb98[lb98=="Argentina",]$LR))
+data[5,]$Y1 <- NULL
+data[6,]$Y1 <- mean(abs(lb00[lb00=="Argentina",]$LR))
+data[7,]$Y1 <- mean(abs(lb01[lb01=="Argentina",]$LR))
+data[8,]$Y1 <- mean(abs(lb02[lb02=="Argentina",]$LR))
+data[9,]$Y1 <- mean(abs(lb03[lb03=="Argentina",]$LR))
+data[10,]$Y1 <- mean(abs(lb04[lb04=="Argentina",]$LR))
+data[11,]$Y1 <- mean(abs(lb05[lb05=="Argentina",]$LR))
+data[12,]$Y1 <- mean(abs(lb06[lb06=="Argentina",]$LR))
+data[13,]$Y1 <- mean(abs(lb07[lb07=="Argentina",]$LR))
+data[14,]$Y1 <- mean(abs(lb08[lb08=="Argentina",]$LR))
+data[15,]$Y1 <- mean(abs(lb09[lb09=="Argentina",]$LR))
+data[16,]$Y1 <- mean(abs(lb10[lb10=="Argentina",]$LR))
+data[17,]$Y1 <- mean(abs(lb11[lb11=="Argentina",]$LR))
+data[18,]$Y1 <- NULL
+data[19,]$Y1 <- mean(abs(lb13[lb13=="Argentina",]$LR))
+data[20,]$Y1 <- NULL
+data[21,]$Y1 <- mean(abs(lb15[lb15=="Argentina",]$LR))
+data[22,]$Y1 <- mean(abs(lb16[lb16=="Argentina",]$LR))
+
+data[23,]$Y1 <- NULL
+data[24,]$Y1 <- mean(abs(lb96[lb96=="Bolivia",]$LR))
+data[25,]$Y1 <- mean(abs(lb97[lb97=="Bolivia",]$LR))
+data[26,]$Y1 <- mean(abs(lb98[lb98=="Bolivia",]$LR))
+data[27,]$Y1 <- NULL
+data[28,]$Y1 <- mean(abs(lb00[lb00=="Bolivia",]$LR))
+data[29,]$Y1 <- mean(abs(lb01[lb01=="Bolivia",]$LR))
+data[30,]$Y1 <- mean(abs(lb02[lb02=="Bolivia",]$LR))
+data[31,]$Y1 <- mean(abs(lb03[lb03=="Bolivia",]$LR))
+data[32,]$Y1 <- mean(abs(lb04[lb04=="Bolivia",]$LR))
+data[33,]$Y1 <- mean(abs(lb05[lb05=="Bolivia",]$LR))
+data[34,]$Y1 <- mean(abs(lb06[lb06=="Bolivia",]$LR))
+data[35,]$Y1 <- mean(abs(lb07[lb07=="Bolivia",]$LR))
+data[36,]$Y1 <- mean(abs(lb08[lb08=="Bolivia",]$LR))
+data[37,]$Y1 <- mean(abs(lb09[lb09=="Bolivia",]$LR))
+data[38,]$Y1 <- mean(abs(lb10[lb10=="Bolivia",]$LR))
+data[39,]$Y1 <- mean(abs(lb11[lb11=="Bolivia",]$LR))
+data[40,]$Y1 <- NULL
+data[41,]$Y1 <- mean(abs(lb13[lb13=="Bolivia",]$LR))
+data[42,]$Y1 <- NULL
+data[43,]$Y1 <- mean(abs(lb15[lb15=="Bolivia",]$LR))
+data[44,]$Y1 <- mean(abs(lb16[lb16=="Bolivia",]$LR))
+
+data[45,]$Y1 <- mean(abs(lb95[lb95=="Brazil",]$LR))
+data[46,]$Y1 <- mean(abs(lb96[lb96=="Brazil",]$LR))
+data[47,]$Y1 <- mean(abs(lb97[lb97=="Brazil",]$LR))
+data[48,]$Y1 <- mean(abs(lb98[lb98=="Brazil",]$LR))
+data[49,]$Y1 <- NULL
+data[50,]$Y1 <- mean(abs(lb00[lb00=="Brazil",]$LR))
+data[51,]$Y1 <- mean(abs(lb01[lb01=="Brazil",]$LR))
+data[52,]$Y1 <- mean(abs(lb02[lb02=="Brazil",]$LR))
+data[53,]$Y1 <- mean(abs(lb03[lb03=="Brazil",]$LR))
+data[54,]$Y1 <- mean(abs(lb04[lb04=="Brazil",]$LR))
+data[55,]$Y1 <- mean(abs(lb05[lb05=="Brazil",]$LR))
+data[56,]$Y1 <- mean(abs(lb06[lb06=="Brazil",]$LR))
+data[57,]$Y1 <- mean(abs(lb07[lb07=="Brazil",]$LR))
+data[58,]$Y1 <- mean(abs(lb08[lb08=="Brazil",]$LR))
+data[59,]$Y1 <- mean(abs(lb09[lb09=="Brazil",]$LR))
+data[60,]$Y1 <- mean(abs(lb10[lb10=="Brazil",]$LR))
+data[61,]$Y1 <- mean(abs(lb11[lb11=="Brazil",]$LR))
+data[62,]$Y1 <- NULL
+data[63,]$Y1 <- mean(abs(lb13[lb13=="Brazil",]$LR))
+data[64,]$Y1 <- NULL
+data[65,]$Y1 <- mean(abs(lb15[lb15=="Brazil",]$LR))
+data[66,]$Y1 <- mean(abs(lb16[lb16=="Brazil",]$LR))
+
+data[67,]$Y1 <- mean(abs(lb95[lb95=="Chile",]$LR))
+data[68,]$Y1 <- mean(abs(lb96[lb96=="Chile",]$LR))
+data[69,]$Y1 <- mean(abs(lb97[lb97=="Chile",]$LR))
+data[70,]$Y1 <- mean(abs(lb98[lb98=="Chile",]$LR))
+data[71,]$Y1 <- NULL
+data[72,]$Y1 <- mean(abs(lb00[lb00=="Chile",]$LR))
+data[73,]$Y1 <- mean(abs(lb01[lb01=="Chile",]$LR))
+data[74,]$Y1 <- mean(abs(lb02[lb02=="Chile",]$LR))
+data[75,]$Y1 <- mean(abs(lb03[lb03=="Chile",]$LR))
+data[76,]$Y1 <- mean(abs(lb04[lb04=="Chile",]$LR))
+data[77,]$Y1 <- mean(abs(lb05[lb05=="Chile",]$LR))
+data[78,]$Y1 <- mean(abs(lb06[lb06=="Chile",]$LR))
+data[79,]$Y1 <- mean(abs(lb07[lb07=="Chile",]$LR))
+data[80,]$Y1 <- mean(abs(lb08[lb08=="Chile",]$LR))
+data[81,]$Y1 <- mean(abs(lb09[lb09=="Chile",]$LR))
+data[82,]$Y1 <- mean(abs(lb10[lb10=="Chile",]$LR))
+data[83,]$Y1 <- mean(abs(lb11[lb11=="Chile",]$LR))
+data[84,]$Y1 <- NULL
+data[85,]$Y1 <- mean(abs(lb13[lb13=="Chile",]$LR))
+data[86,]$Y1 <- NULL
+data[87,]$Y1 <- mean(abs(lb15[lb15=="Chile",]$LR))
+data[88,]$Y1 <- mean(abs(lb16[lb16=="Chile",]$LR))
+
+data[89,]$Y1 <- NULL
+data[90,]$Y1 <- mean(abs(lb96[lb96=="Colombia",]$LR))
+data[91,]$Y1 <- mean(abs(lb97[lb97=="Colombia",]$LR))
+data[92,]$Y1 <- mean(abs(lb98[lb98=="Colombia",]$LR))
+data[93,]$Y1 <- NULL
+data[94,]$Y1 <- mean(abs(lb00[lb00=="Colombia",]$LR))
+data[95,]$Y1 <- mean(abs(lb01[lb01=="Colombia",]$LR))
+data[96,]$Y1 <- mean(abs(lb02[lb02=="Colombia",]$LR))
+data[97,]$Y1 <- mean(abs(lb03[lb03=="Colombia",]$LR))
+data[98,]$Y1 <- mean(abs(lb04[lb04=="Colombia",]$LR))
+data[99,]$Y1 <- mean(abs(lb05[lb05=="Colombia",]$LR))
+data[100,]$Y1 <- mean(abs(lb06[lb06=="Colombia",]$LR))
+data[101,]$Y1 <- mean(abs(lb07[lb07=="Colombia",]$LR))
+data[102,]$Y1 <- mean(abs(lb08[lb08=="Colombia",]$LR))
+data[103,]$Y1 <- mean(abs(lb09[lb09=="Colombia",]$LR))
+data[104,]$Y1 <- mean(abs(lb10[lb10=="Colombia",]$LR))
+data[105,]$Y1 <- mean(abs(lb11[lb11=="Colombia",]$LR))
+data[106,]$Y1 <- NULL
+data[107,]$Y1 <- mean(abs(lb13[lb13=="Colombia",]$LR))
+data[108,]$Y1 <- NULL
+data[109,]$Y1 <- mean(abs(lb15[lb15=="Colombia",]$LR))
+data[110,]$Y1 <- mean(abs(lb16[lb16=="Colombia",]$LR))
+
+data[111,]$Y1 <- NULL
+data[112,]$Y1 <- mean(abs(lb96[lb96=="Ecuador",]$LR))
+data[113,]$Y1 <- mean(abs(lb97[lb97=="Ecuador",]$LR))
+data[114,]$Y1 <- mean(abs(lb98[lb98=="Ecuador",]$LR))
+data[115,]$Y1 <- NULL
+data[116,]$Y1 <- mean(abs(lb00[lb00=="Ecuador",]$LR))
+data[117,]$Y1 <- mean(abs(lb01[lb01=="Ecuador",]$LR))
+data[118,]$Y1 <- mean(abs(lb02[lb02=="Ecuador",]$LR))
+data[119,]$Y1 <- mean(abs(lb03[lb03=="Ecuador",]$LR))
+data[120,]$Y1 <- mean(abs(lb04[lb04=="Ecuador",]$LR))
+data[121,]$Y1 <- mean(abs(lb05[lb05=="Ecuador",]$LR))
+data[122,]$Y1 <- mean(abs(lb06[lb06=="Ecuador",]$LR))
+data[123,]$Y1 <- mean(abs(lb07[lb07=="Ecuador",]$LR))
+data[124,]$Y1 <- mean(abs(lb08[lb08=="Ecuador",]$LR))
+data[125,]$Y1 <- mean(abs(lb09[lb09=="Ecuador",]$LR))
+data[126,]$Y1 <- mean(abs(lb10[lb10=="Ecuador",]$LR))
+data[127,]$Y1 <- mean(abs(lb11[lb11=="Ecuador",]$LR))
+data[128,]$Y1 <- NULL
+data[129,]$Y1 <- mean(abs(lb13[lb13=="Ecuador",]$LR))
+data[130,]$Y1 <- NULL
+data[131,]$Y1 <- mean(abs(lb15[lb15=="Ecuador",]$LR))
+data[132,]$Y1 <- mean(abs(lb16[lb16=="Ecuador",]$LR))
+
+data[133,]$Y1 <- mean(abs(lb95[lb95=="Mexico",]$LR))
+data[134,]$Y1 <- mean(abs(lb96[lb96=="Mexico",]$LR))
+data[135,]$Y1 <- mean(abs(lb97[lb97=="Mexico",]$LR))
+data[136,]$Y1 <- mean(abs(lb98[lb98=="Mexico",]$LR))
+data[137,]$Y1 <- NULL
+data[138,]$Y1 <- mean(abs(lb00[lb00=="Mexico",]$LR))
+data[139,]$Y1 <- mean(abs(lb01[lb01=="Mexico",]$LR))
+data[140,]$Y1 <- mean(abs(lb02[lb02=="Mexico",]$LR))
+data[141,]$Y1 <- mean(abs(lb03[lb03=="Mexico",]$LR))
+data[142,]$Y1 <- mean(abs(lb04[lb04=="Mexico",]$LR))
+data[143,]$Y1 <- mean(abs(lb05[lb05=="Mexico",]$LR))
+data[144,]$Y1 <- mean(abs(lb06[lb06=="Mexico",]$LR))
+data[145,]$Y1 <- mean(abs(lb07[lb07=="Mexico",]$LR))
+data[146,]$Y1 <- mean(abs(lb08[lb08=="Mexico",]$LR))
+data[147,]$Y1 <- mean(abs(lb09[lb09=="Mexico",]$LR))
+data[148,]$Y1 <- mean(abs(lb10[lb10=="Mexico",]$LR))
+data[149,]$Y1 <- mean(abs(lb11[lb11=="Mexico",]$LR))
+data[150,]$Y1 <- NULL
+data[151,]$Y1 <- mean(abs(lb13[lb13=="Mexico",]$LR))
+data[152,]$Y1 <- NULL
+data[153,]$Y1 <- mean(abs(lb15[lb15=="Mexico",]$LR))
+data[154,]$Y1 <- mean(abs(lb16[lb16=="Mexico",]$LR))
+
+data[155,]$Y1 <- mean(abs(lb95[lb95=="Paraguay",]$LR))
+data[156,]$Y1 <- mean(abs(lb96[lb96=="Paraguay",]$LR))
+data[157,]$Y1 <- mean(abs(lb97[lb97=="Paraguay",]$LR))
+data[158,]$Y1 <- mean(abs(lb98[lb98=="Paraguay",]$LR))
+data[159,]$Y1 <- NULL
+data[160,]$Y1 <- mean(abs(lb00[lb00=="Paraguay",]$LR))
+data[161,]$Y1 <- mean(abs(lb01[lb01=="Paraguay",]$LR))
+data[162,]$Y1 <- mean(abs(lb02[lb02=="Paraguay",]$LR))
+data[163,]$Y1 <- mean(abs(lb03[lb03=="Paraguay",]$LR))
+data[164,]$Y1 <- mean(abs(lb04[lb04=="Paraguay",]$LR))
+data[165,]$Y1 <- mean(abs(lb05[lb05=="Paraguay",]$LR))
+data[166,]$Y1 <- mean(abs(lb06[lb06=="Paraguay",]$LR))
+data[167,]$Y1 <- mean(abs(lb07[lb07=="Paraguay",]$LR))
+data[168,]$Y1 <- mean(abs(lb08[lb08=="Paraguay",]$LR))
+data[169,]$Y1 <- mean(abs(lb09[lb09=="Paraguay",]$LR))
+data[170,]$Y1 <- mean(abs(lb10[lb10=="Paraguay",]$LR))
+data[171,]$Y1 <- mean(abs(lb11[lb11=="Paraguay",]$LR))
+data[172,]$Y1 <- NULL
+data[173,]$Y1 <- mean(abs(lb13[lb13=="Paraguay",]$LR))
+data[174,]$Y1 <- NULL
+data[175,]$Y1 <- mean(abs(lb15[lb15=="Paraguay",]$LR))
+data[176,]$Y1 <- mean(abs(lb16[lb16=="Paraguay",]$LR))
+
+data[177,]$Y1 <- mean(abs(lb95[lb95=="Peru",]$LR))
+data[178,]$Y1 <- mean(abs(lb96[lb96=="Peru",]$LR))
+data[179,]$Y1 <- mean(abs(lb97[lb97=="Peru",]$LR))
+data[180,]$Y1 <- mean(abs(lb98[lb98=="Peru",]$LR))
+data[181,]$Y1 <- NULL
+data[182,]$Y1 <- mean(abs(lb00[lb00=="Peru",]$LR))
+data[183,]$Y1 <- mean(abs(lb01[lb01=="Peru",]$LR))
+data[184,]$Y1 <- mean(abs(lb02[lb02=="Peru",]$LR))
+data[185,]$Y1 <- mean(abs(lb03[lb03=="Peru",]$LR))
+data[186,]$Y1 <- mean(abs(lb04[lb04=="Peru",]$LR))
+data[187,]$Y1 <- mean(abs(lb05[lb05=="Peru",]$LR))
+data[188,]$Y1 <- mean(abs(lb06[lb06=="Peru",]$LR))
+data[189,]$Y1 <- mean(abs(lb07[lb07=="Peru",]$LR))
+data[190,]$Y1 <- mean(abs(lb08[lb08=="Peru",]$LR))
+data[191,]$Y1 <- mean(abs(lb09[lb09=="Peru",]$LR))
+data[192,]$Y1 <- mean(abs(lb10[lb10=="Peru",]$LR))
+data[193,]$Y1 <- mean(abs(lb11[lb11=="Peru",]$LR))
+data[194,]$Y1 <- NULL
+data[195,]$Y1 <- mean(abs(lb13[lb13=="Peru",]$LR))
+data[196,]$Y1 <- NULL
+data[197,]$Y1 <- mean(abs(lb15[lb15=="Peru",]$LR))
+data[198,]$Y1 <- mean(abs(lb16[lb16=="Peru",]$LR))
+
+data[199,]$Y1 <- mean(abs(lb95[lb95=="Uruguay",]$LR))
+data[200,]$Y1 <- mean(abs(lb96[lb96=="Uruguay",]$LR))
+data[201,]$Y1 <- mean(abs(lb97[lb97=="Uruguay",]$LR))
+data[202,]$Y1 <- mean(abs(lb98[lb98=="Uruguay",]$LR))
+data[203,]$Y1 <- NULL
+data[204,]$Y1 <- mean(abs(lb00[lb00=="Uruguay",]$LR))
+data[205,]$Y1 <- mean(abs(lb01[lb01=="Uruguay",]$LR))
+data[206,]$Y1 <- mean(abs(lb02[lb02=="Uruguay",]$LR))
+data[207,]$Y1 <- mean(abs(lb03[lb03=="Uruguay",]$LR))
+data[208,]$Y1 <- mean(abs(lb04[lb04=="Uruguay",]$LR))
+data[209,]$Y1 <- mean(abs(lb05[lb05=="Uruguay",]$LR))
+data[210,]$Y1 <- mean(abs(lb06[lb06=="Uruguay",]$LR))
+data[211,]$Y1 <- mean(abs(lb07[lb07=="Uruguay",]$LR))
+data[212,]$Y1 <- mean(abs(lb08[lb08=="Uruguay",]$LR))
+data[213,]$Y1 <- mean(abs(lb09[lb09=="Uruguay",]$LR))
+data[214,]$Y1 <- mean(abs(lb10[lb10=="Uruguay",]$LR))
+data[215,]$Y1 <- mean(abs(lb11[lb11=="Uruguay",]$LR))
+data[216,]$Y1 <- NULL
+data[217,]$Y1 <- mean(abs(lb13[lb13=="Uruguay",]$LR))
+data[218,]$Y1 <- NULL
+data[219,]$Y1 <- mean(abs(lb15[lb15=="Uruguay",]$LR))
+data[220,]$Y1 <- mean(abs(lb16[lb16=="Uruguay",]$LR))
+
+data[221,]$Y1 <- mean(abs(lb95[lb95=="Venezuela",]$LR))
+data[222,]$Y1 <- mean(abs(lb96[lb96=="Venezuela",]$LR))
+data[223,]$Y1 <- mean(abs(lb97[lb97=="Venezuela",]$LR))
+data[224,]$Y1 <- mean(abs(lb98[lb98=="Venezuela",]$LR))
+data[225,]$Y1 <- NULL
+data[226,]$Y1 <- mean(abs(lb00[lb00=="Venezuela",]$LR))
+data[227,]$Y1 <- mean(abs(lb01[lb01=="Venezuela",]$LR))
+data[228,]$Y1 <- mean(abs(lb02[lb02=="Venezuela",]$LR))
+data[229,]$Y1 <- mean(abs(lb03[lb03=="Venezuela",]$LR))
+data[230,]$Y1 <- mean(abs(lb04[lb04=="Venezuela",]$LR))
+data[231,]$Y1 <- mean(abs(lb05[lb05=="Venezuela",]$LR))
+data[232,]$Y1 <- mean(abs(lb06[lb06=="Venezuela",]$LR))
+data[233,]$Y1 <- mean(abs(lb07[lb07=="Venezuela",]$LR))
+data[234,]$Y1 <- mean(abs(lb08[lb08=="Venezuela",]$LR))
+data[235,]$Y1 <- mean(abs(lb09[lb09=="Venezuela",]$LR))
+data[236,]$Y1 <- mean(abs(lb10[lb10=="Venezuela",]$LR))
+data[237,]$Y1 <- mean(abs(lb11[lb11=="Venezuela",]$LR))
+data[238,]$Y1 <- NULL
+data[239,]$Y1 <- mean(abs(lb13[lb13=="Venezuela",]$LR))
+data[240,]$Y1 <- NULL
+data[241,]$Y1 <- mean(abs(lb15[lb15=="Venezuela",]$LR))
+data[242,]$Y1 <- mean(abs(lb16[lb16=="Venezuela",]$LR))
+
+
+
+
+data[1,]$Y2 <- sd(lb95[lb95=="Argentina",]$LR)
+data[2,]$Y2 <- sd(lb96[lb96=="Argentina",]$LR)
+data[3,]$Y2 <- sd(lb97[lb97=="Argentina",]$LR)
+data[4,]$Y2 <- sd(lb98[lb98=="Argentina",]$LR)
+data[5,]$Y2 <- NULL
+data[6,]$Y2 <- sd(lb00[lb00=="Argentina",]$LR)
+data[7,]$Y2 <- sd(lb01[lb01=="Argentina",]$LR)
+data[8,]$Y2 <- sd(lb02[lb02=="Argentina",]$LR)
+data[9,]$Y2 <- sd(lb03[lb03=="Argentina",]$LR)
+data[10,]$Y2 <- sd(lb04[lb04=="Argentina",]$LR)
+data[11,]$Y2 <- sd(lb05[lb05=="Argentina",]$LR)
+data[12,]$Y2 <- sd(lb06[lb06=="Argentina",]$LR)
+data[13,]$Y2 <- sd(lb07[lb07=="Argentina",]$LR)
+data[14,]$Y2 <- sd(lb08[lb08=="Argentina",]$LR)
+data[15,]$Y2 <- sd(lb09[lb09=="Argentina",]$LR)
+data[16,]$Y2 <- sd(lb10[lb10=="Argentina",]$LR)
+data[17,]$Y2 <- sd(lb11[lb11=="Argentina",]$LR)
+data[18,]$Y2 <- NULL
+data[19,]$Y2 <- sd(lb13[lb13=="Argentina",]$LR)
+data[20,]$Y2 <- NULL
+data[21,]$Y2 <- sd(lb15[lb15=="Argentina",]$LR)
+data[22,]$Y2 <- sd(lb16[lb16=="Argentina",]$LR)
+
+data[23,]$Y2 <- NULL
+data[24,]$Y2 <- sd(lb96[lb96=="Bolivia",]$LR)
+data[25,]$Y2 <- sd(lb97[lb97=="Bolivia",]$LR)
+data[26,]$Y2 <- sd(lb98[lb98=="Bolivia",]$LR)
+data[27,]$Y2 <- NULL
+data[28,]$Y2 <- sd(lb00[lb00=="Bolivia",]$LR)
+data[29,]$Y2 <- sd(lb01[lb01=="Bolivia",]$LR)
+data[30,]$Y2 <- sd(lb02[lb02=="Bolivia",]$LR)
+data[31,]$Y2 <- sd(lb03[lb03=="Bolivia",]$LR)
+data[32,]$Y2 <- sd(lb04[lb04=="Bolivia",]$LR)
+data[33,]$Y2 <- sd(lb05[lb05=="Bolivia",]$LR)
+data[34,]$Y2 <- sd(lb06[lb06=="Bolivia",]$LR)
+data[35,]$Y2 <- sd(lb07[lb07=="Bolivia",]$LR)
+data[36,]$Y2 <- sd(lb08[lb08=="Bolivia",]$LR)
+data[37,]$Y2 <- sd(lb09[lb09=="Bolivia",]$LR)
+data[38,]$Y2 <- sd(lb10[lb10=="Bolivia",]$LR)
+data[39,]$Y2 <- sd(lb11[lb11=="Bolivia",]$LR)
+data[40,]$Y2 <- NULL
+data[41,]$Y2 <- sd(lb13[lb13=="Bolivia",]$LR)
+data[42,]$Y2 <- NULL
+data[43,]$Y2 <- sd(lb15[lb15=="Bolivia",]$LR)
+data[44,]$Y2 <- sd(lb16[lb16=="Bolivia",]$LR)
+
+data[45,]$Y2 <- sd(lb95[lb95=="Brazil",]$LR)
+data[46,]$Y2 <- sd(lb96[lb96=="Brazil",]$LR)
+data[47,]$Y2 <- sd(lb97[lb97=="Brazil",]$LR)
+data[48,]$Y2 <- sd(lb98[lb98=="Brazil",]$LR)
+data[49,]$Y2 <- NULL
+data[50,]$Y2 <- sd(lb00[lb00=="Brazil",]$LR)
+data[51,]$Y2 <- sd(lb01[lb01=="Brazil",]$LR)
+data[52,]$Y2 <- sd(lb02[lb02=="Brazil",]$LR)
+data[53,]$Y2 <- sd(lb03[lb03=="Brazil",]$LR)
+data[54,]$Y2 <- sd(lb04[lb04=="Brazil",]$LR)
+data[55,]$Y2 <- sd(lb05[lb05=="Brazil",]$LR)
+data[56,]$Y2 <- sd(lb06[lb06=="Brazil",]$LR)
+data[57,]$Y2 <- sd(lb07[lb07=="Brazil",]$LR)
+data[58,]$Y2 <- sd(lb08[lb08=="Brazil",]$LR)
+data[59,]$Y2 <- sd(lb09[lb09=="Brazil",]$LR)
+data[60,]$Y2 <- sd(lb10[lb10=="Brazil",]$LR)
+data[61,]$Y2 <- sd(lb11[lb11=="Brazil",]$LR)
+data[62,]$Y2 <- NULL
+data[63,]$Y2 <- sd(lb13[lb13=="Brazil",]$LR)
+data[64,]$Y2 <- NULL
+data[65,]$Y2 <- sd(lb15[lb15=="Brazil",]$LR)
+data[66,]$Y2 <- sd(lb16[lb16=="Brazil",]$LR)
+
+data[67,]$Y2 <- sd(lb95[lb95=="Chile",]$LR)
+data[68,]$Y2 <- sd(lb96[lb96=="Chile",]$LR)
+data[69,]$Y2 <- sd(lb97[lb97=="Chile",]$LR)
+data[70,]$Y2 <- sd(lb98[lb98=="Chile",]$LR)
+data[71,]$Y2 <- NULL
+data[72,]$Y2 <- sd(lb00[lb00=="Chile",]$LR)
+data[73,]$Y2 <- sd(lb01[lb01=="Chile",]$LR)
+data[74,]$Y2 <- sd(lb02[lb02=="Chile",]$LR)
+data[75,]$Y2 <- sd(lb03[lb03=="Chile",]$LR)
+data[76,]$Y2 <- sd(lb04[lb04=="Chile",]$LR)
+data[77,]$Y2 <- sd(lb05[lb05=="Chile",]$LR)
+data[78,]$Y2 <- sd(lb06[lb06=="Chile",]$LR)
+data[79,]$Y2 <- sd(lb07[lb07=="Chile",]$LR)
+data[80,]$Y2 <- sd(lb08[lb08=="Chile",]$LR)
+data[81,]$Y2 <- sd(lb09[lb09=="Chile",]$LR)
+data[82,]$Y2 <- sd(lb10[lb10=="Chile",]$LR)
+data[83,]$Y2 <- sd(lb11[lb11=="Chile",]$LR)
+data[84,]$Y2 <- NULL
+data[85,]$Y2 <- sd(lb13[lb13=="Chile",]$LR)
+data[86,]$Y2 <- NULL
+data[87,]$Y2 <- sd(lb15[lb15=="Chile",]$LR)
+data[88,]$Y2 <- sd(lb16[lb16=="Chile",]$LR)
+
+data[89,]$Y2 <- NULL
+data[90,]$Y2 <- sd(lb96[lb96=="Colombia",]$LR)
+data[91,]$Y2 <- sd(lb97[lb97=="Colombia",]$LR)
+data[92,]$Y2 <- sd(lb98[lb98=="Colombia",]$LR)
+data[93,]$Y2 <- NULL
+data[94,]$Y2 <- sd(lb00[lb00=="Colombia",]$LR)
+data[95,]$Y2 <- sd(lb01[lb01=="Colombia",]$LR)
+data[96,]$Y2 <- sd(lb02[lb02=="Colombia",]$LR)
+data[97,]$Y2 <- sd(lb03[lb03=="Colombia",]$LR)
+data[98,]$Y2 <- sd(lb04[lb04=="Colombia",]$LR)
+data[99,]$Y2 <- sd(lb05[lb05=="Colombia",]$LR)
+data[100,]$Y2 <- sd(lb06[lb06=="Colombia",]$LR)
+data[101,]$Y2 <- sd(lb07[lb07=="Colombia",]$LR)
+data[102,]$Y2 <- sd(lb08[lb08=="Colombia",]$LR)
+data[103,]$Y2 <- sd(lb09[lb09=="Colombia",]$LR)
+data[104,]$Y2 <- sd(lb10[lb10=="Colombia",]$LR)
+data[105,]$Y2 <- sd(lb11[lb11=="Colombia",]$LR)
+data[106,]$Y2 <- NULL
+data[107,]$Y2 <- sd(lb13[lb13=="Colombia",]$LR)
+data[108,]$Y2 <- NULL
+data[109,]$Y2 <- sd(lb15[lb15=="Colombia",]$LR)
+data[110,]$Y2 <- sd(lb16[lb16=="Colombia",]$LR)
+
+data[111,]$Y2 <- NULL
+data[112,]$Y2 <- sd(lb96[lb96=="Ecuador",]$LR)
+data[113,]$Y2 <- sd(lb97[lb97=="Ecuador",]$LR)
+data[114,]$Y2 <- sd(lb98[lb98=="Ecuador",]$LR)
+data[115,]$Y2 <- NULL
+data[116,]$Y2 <- sd(lb00[lb00=="Ecuador",]$LR)
+data[117,]$Y2 <- sd(lb01[lb01=="Ecuador",]$LR)
+data[118,]$Y2 <- sd(lb02[lb02=="Ecuador",]$LR)
+data[119,]$Y2 <- sd(lb03[lb03=="Ecuador",]$LR)
+data[120,]$Y2 <- sd(lb04[lb04=="Ecuador",]$LR)
+data[121,]$Y2 <- sd(lb05[lb05=="Ecuador",]$LR)
+data[122,]$Y2 <- sd(lb06[lb06=="Ecuador",]$LR)
+data[123,]$Y2 <- sd(lb07[lb07=="Ecuador",]$LR)
+data[124,]$Y2 <- sd(lb08[lb08=="Ecuador",]$LR)
+data[125,]$Y2 <- sd(lb09[lb09=="Ecuador",]$LR)
+data[126,]$Y2 <- sd(lb10[lb10=="Ecuador",]$LR)
+data[127,]$Y2 <- sd(lb11[lb11=="Ecuador",]$LR)
+data[128,]$Y2 <- NULL
+data[129,]$Y2 <- sd(lb13[lb13=="Ecuador",]$LR)
+data[130,]$Y2 <- NULL
+data[131,]$Y2 <- sd(lb15[lb15=="Ecuador",]$LR)
+data[132,]$Y2 <- sd(lb16[lb16=="Ecuador",]$LR)
+
+data[133,]$Y2 <- sd(lb95[lb95=="Mexico",]$LR)
+data[134,]$Y2 <- sd(lb96[lb96=="Mexico",]$LR)
+data[135,]$Y2 <- sd(lb97[lb97=="Mexico",]$LR)
+data[136,]$Y2 <- sd(lb98[lb98=="Mexico",]$LR)
+data[137,]$Y2 <- NULL
+data[138,]$Y2 <- sd(lb00[lb00=="Mexico",]$LR)
+data[139,]$Y2 <- sd(lb01[lb01=="Mexico",]$LR)
+data[140,]$Y2 <- sd(lb02[lb02=="Mexico",]$LR)
+data[141,]$Y2 <- sd(lb03[lb03=="Mexico",]$LR)
+data[142,]$Y2 <- sd(lb04[lb04=="Mexico",]$LR)
+data[143,]$Y2 <- sd(lb05[lb05=="Mexico",]$LR)
+data[144,]$Y2 <- sd(lb06[lb06=="Mexico",]$LR)
+data[145,]$Y2 <- sd(lb07[lb07=="Mexico",]$LR)
+data[146,]$Y2 <- sd(lb08[lb08=="Mexico",]$LR)
+data[147,]$Y2 <- sd(lb09[lb09=="Mexico",]$LR)
+data[148,]$Y2 <- sd(lb10[lb10=="Mexico",]$LR)
+data[149,]$Y2 <- sd(lb11[lb11=="Mexico",]$LR)
+data[150,]$Y2 <- NULL
+data[151,]$Y2 <- sd(lb13[lb13=="Mexico",]$LR)
+data[152,]$Y2 <- NULL
+data[153,]$Y2 <- sd(lb15[lb15=="Mexico",]$LR)
+data[154,]$Y2 <- sd(lb16[lb16=="Mexico",]$LR)
+
+data[155,]$Y2 <- sd(lb95[lb95=="Paraguay",]$LR)
+data[156,]$Y2 <- sd(lb96[lb96=="Paraguay",]$LR)
+data[157,]$Y2 <- sd(lb97[lb97=="Paraguay",]$LR)
+data[158,]$Y2 <- sd(lb98[lb98=="Paraguay",]$LR)
+data[159,]$Y2 <- NULL
+data[160,]$Y2 <- sd(lb00[lb00=="Paraguay",]$LR)
+data[161,]$Y2 <- sd(lb01[lb01=="Paraguay",]$LR)
+data[162,]$Y2 <- sd(lb02[lb02=="Paraguay",]$LR)
+data[163,]$Y2 <- sd(lb03[lb03=="Paraguay",]$LR)
+data[164,]$Y2 <- sd(lb04[lb04=="Paraguay",]$LR)
+data[165,]$Y2 <- sd(lb05[lb05=="Paraguay",]$LR)
+data[166,]$Y2 <- sd(lb06[lb06=="Paraguay",]$LR)
+data[167,]$Y2 <- sd(lb07[lb07=="Paraguay",]$LR)
+data[168,]$Y2 <- sd(lb08[lb08=="Paraguay",]$LR)
+data[169,]$Y2 <- sd(lb09[lb09=="Paraguay",]$LR)
+data[170,]$Y2 <- sd(lb10[lb10=="Paraguay",]$LR)
+data[171,]$Y2 <- sd(lb11[lb11=="Paraguay",]$LR)
+data[172,]$Y2 <- NULL
+data[173,]$Y2 <- sd(lb13[lb13=="Paraguay",]$LR)
+data[174,]$Y2 <- NULL
+data[175,]$Y2 <- sd(lb15[lb15=="Paraguay",]$LR)
+data[176,]$Y2 <- sd(lb16[lb16=="Paraguay",]$LR)
+
+data[177,]$Y2 <- sd(lb95[lb95=="Peru",]$LR)
+data[178,]$Y2 <- sd(lb96[lb96=="Peru",]$LR)
+data[179,]$Y2 <- sd(lb97[lb97=="Peru",]$LR)
+data[180,]$Y2 <- sd(lb98[lb98=="Peru",]$LR)
+data[181,]$Y2 <- NULL
+data[182,]$Y2 <- sd(lb00[lb00=="Peru",]$LR)
+data[183,]$Y2 <- sd(lb01[lb01=="Peru",]$LR)
+data[184,]$Y2 <- sd(lb02[lb02=="Peru",]$LR)
+data[185,]$Y2 <- sd(lb03[lb03=="Peru",]$LR)
+data[186,]$Y2 <- sd(lb04[lb04=="Peru",]$LR)
+data[187,]$Y2 <- sd(lb05[lb05=="Peru",]$LR)
+data[188,]$Y2 <- sd(lb06[lb06=="Peru",]$LR)
+data[189,]$Y2 <- sd(lb07[lb07=="Peru",]$LR)
+data[190,]$Y2 <- sd(lb08[lb08=="Peru",]$LR)
+data[191,]$Y2 <- sd(lb09[lb09=="Peru",]$LR)
+data[192,]$Y2 <- sd(lb10[lb10=="Peru",]$LR)
+data[193,]$Y2 <- sd(lb11[lb11=="Peru",]$LR)
+data[194,]$Y2 <- NULL
+data[195,]$Y2 <- sd(lb13[lb13=="Peru",]$LR)
+data[196,]$Y2 <- NULL
+data[197,]$Y2 <- sd(lb15[lb15=="Peru",]$LR)
+data[198,]$Y2 <- sd(lb16[lb16=="Peru",]$LR)
+
+data[199,]$Y2 <- sd(lb95[lb95=="Uruguay",]$LR)
+data[200,]$Y2 <- sd(lb96[lb96=="Uruguay",]$LR)
+data[201,]$Y2 <- sd(lb97[lb97=="Uruguay",]$LR)
+data[202,]$Y2 <- sd(lb98[lb98=="Uruguay",]$LR)
+data[203,]$Y2 <- NULL
+data[204,]$Y2 <- sd(lb00[lb00=="Uruguay",]$LR)
+data[205,]$Y2 <- sd(lb01[lb01=="Uruguay",]$LR)
+data[206,]$Y2 <- sd(lb02[lb02=="Uruguay",]$LR)
+data[207,]$Y2 <- sd(lb03[lb03=="Uruguay",]$LR)
+data[208,]$Y2 <- sd(lb04[lb04=="Uruguay",]$LR)
+data[209,]$Y2 <- sd(lb05[lb05=="Uruguay",]$LR)
+data[210,]$Y2 <- sd(lb06[lb06=="Uruguay",]$LR)
+data[211,]$Y2 <- sd(lb07[lb07=="Uruguay",]$LR)
+data[212,]$Y2 <- sd(lb08[lb08=="Uruguay",]$LR)
+data[213,]$Y2 <- sd(lb09[lb09=="Uruguay",]$LR)
+data[214,]$Y2 <- sd(lb10[lb10=="Uruguay",]$LR)
+data[215,]$Y2 <- sd(lb11[lb11=="Uruguay",]$LR)
+data[216,]$Y2 <- NULL
+data[217,]$Y2 <- sd(lb13[lb13=="Uruguay",]$LR)
+data[218,]$Y2 <- NULL
+data[219,]$Y2 <- sd(lb15[lb15=="Uruguay",]$LR)
+data[220,]$Y2 <- sd(lb16[lb16=="Uruguay",]$LR)
+
+data[221,]$Y2 <- sd(lb95[lb95=="Venezuela",]$LR)
+data[222,]$Y2 <- sd(lb96[lb96=="Venezuela",]$LR)
+data[223,]$Y2 <- sd(lb97[lb97=="Venezuela",]$LR)
+data[224,]$Y2 <- sd(lb98[lb98=="Venezuela",]$LR)
+data[225,]$Y2 <- NULL
+data[226,]$Y2 <- sd(lb00[lb00=="Venezuela",]$LR)
+data[227,]$Y2 <- sd(lb01[lb01=="Venezuela",]$LR)
+data[228,]$Y2 <- sd(lb02[lb02=="Venezuela",]$LR)
+data[229,]$Y2 <- sd(lb03[lb03=="Venezuela",]$LR)
+data[230,]$Y2 <- sd(lb04[lb04=="Venezuela",]$LR)
+data[231,]$Y2 <- sd(lb05[lb05=="Venezuela",]$LR)
+data[232,]$Y2 <- sd(lb06[lb06=="Venezuela",]$LR)
+data[233,]$Y2 <- sd(lb07[lb07=="Venezuela",]$LR)
+data[234,]$Y2 <- sd(lb08[lb08=="Venezuela",]$LR)
+data[235,]$Y2 <- sd(lb09[lb09=="Venezuela",]$LR)
+data[236,]$Y2 <- sd(lb10[lb10=="Venezuela",]$LR)
+data[237,]$Y2 <- sd(lb11[lb11=="Venezuela",]$LR)
+data[238,]$Y2 <- NULL
+data[239,]$Y2 <- sd(lb13[lb13=="Venezuela",]$LR)
+data[240,]$Y2 <- NULL
+data[241,]$Y2 <- sd(lb15[lb15=="Venezuela",]$LR)
+data[242,]$Y2 <- sd(lb16[lb16=="Venezuela",]$LR)
+
+
+data[1,]$Y3 <- mean(lb95[lb95=="Argentina",]$LR)
+data[2,]$Y3 <- mean(lb96[lb96=="Argentina",]$LR)
+data[3,]$Y3 <- mean(lb97[lb97=="Argentina",]$LR)
+data[4,]$Y3 <- mean(lb98[lb98=="Argentina",]$LR)
+data[5,]$Y3 <- NULL
+data[6,]$Y3 <- mean(lb00[lb00=="Argentina",]$LR)
+data[7,]$Y3 <- mean(lb01[lb01=="Argentina",]$LR)
+data[8,]$Y3 <- mean(lb02[lb02=="Argentina",]$LR)
+data[9,]$Y3 <- mean(lb03[lb03=="Argentina",]$LR)
+data[10,]$Y3 <- mean(lb04[lb04=="Argentina",]$LR)
+data[11,]$Y3 <- mean(lb05[lb05=="Argentina",]$LR)
+data[12,]$Y3 <- mean(lb06[lb06=="Argentina",]$LR)
+data[13,]$Y3 <- mean(lb07[lb07=="Argentina",]$LR)
+data[14,]$Y3 <- mean(lb08[lb08=="Argentina",]$LR)
+data[15,]$Y3 <- mean(lb09[lb09=="Argentina",]$LR)
+data[16,]$Y3 <- mean(lb10[lb10=="Argentina",]$LR)
+data[17,]$Y3 <- mean(lb11[lb11=="Argentina",]$LR)
+data[18,]$Y3 <- NULL
+data[19,]$Y3 <- mean(lb13[lb13=="Argentina",]$LR)
+data[20,]$Y3 <- NULL
+data[21,]$Y3 <- mean(lb15[lb15=="Argentina",]$LR)
+data[22,]$Y3 <- mean(lb16[lb16=="Argentina",]$LR)
+
+data[23,]$Y3 <- NULL
+data[24,]$Y3 <- mean(lb96[lb96=="Bolivia",]$LR)
+data[25,]$Y3 <- mean(lb97[lb97=="Bolivia",]$LR)
+data[26,]$Y3 <- mean(lb98[lb98=="Bolivia",]$LR)
+data[27,]$Y3 <- NULL
+data[28,]$Y3 <- mean(lb00[lb00=="Bolivia",]$LR)
+data[29,]$Y3 <- mean(lb01[lb01=="Bolivia",]$LR)
+data[30,]$Y3 <- mean(lb02[lb02=="Bolivia",]$LR)
+data[31,]$Y3 <- mean(lb03[lb03=="Bolivia",]$LR)
+data[32,]$Y3 <- mean(lb04[lb04=="Bolivia",]$LR)
+data[33,]$Y3 <- mean(lb05[lb05=="Bolivia",]$LR)
+data[34,]$Y3 <- mean(lb06[lb06=="Bolivia",]$LR)
+data[35,]$Y3 <- mean(lb07[lb07=="Bolivia",]$LR)
+data[36,]$Y3 <- mean(lb08[lb08=="Bolivia",]$LR)
+data[37,]$Y3 <- mean(lb09[lb09=="Bolivia",]$LR)
+data[38,]$Y3 <- mean(lb10[lb10=="Bolivia",]$LR)
+data[39,]$Y3 <- mean(lb11[lb11=="Bolivia",]$LR)
+data[40,]$Y3 <- NULL
+data[41,]$Y3 <- mean(lb13[lb13=="Bolivia",]$LR)
+data[42,]$Y3 <- NULL
+data[43,]$Y3 <- mean(lb15[lb15=="Bolivia",]$LR)
+data[44,]$Y3 <- mean(lb16[lb16=="Bolivia",]$LR)
+
+data[45,]$Y3 <- mean(lb95[lb95=="Brazil",]$LR)
+data[46,]$Y3 <- mean(lb96[lb96=="Brazil",]$LR)
+data[47,]$Y3 <- mean(lb97[lb97=="Brazil",]$LR)
+data[48,]$Y3 <- mean(lb98[lb98=="Brazil",]$LR)
+data[49,]$Y3 <- NULL
+data[50,]$Y3 <- mean(lb00[lb00=="Brazil",]$LR)
+data[51,]$Y3 <- mean(lb01[lb01=="Brazil",]$LR)
+data[52,]$Y3 <- mean(lb02[lb02=="Brazil",]$LR)
+data[53,]$Y3 <- mean(lb03[lb03=="Brazil",]$LR)
+data[54,]$Y3 <- mean(lb04[lb04=="Brazil",]$LR)
+data[55,]$Y3 <- mean(lb05[lb05=="Brazil",]$LR)
+data[56,]$Y3 <- mean(lb06[lb06=="Brazil",]$LR)
+data[57,]$Y3 <- mean(lb07[lb07=="Brazil",]$LR)
+data[58,]$Y3 <- mean(lb08[lb08=="Brazil",]$LR)
+data[59,]$Y3 <- mean(lb09[lb09=="Brazil",]$LR)
+data[60,]$Y3 <- mean(lb10[lb10=="Brazil",]$LR)
+data[61,]$Y3 <- mean(lb11[lb11=="Brazil",]$LR)
+data[62,]$Y3 <- NULL
+data[63,]$Y3 <- mean(lb13[lb13=="Brazil",]$LR)
+data[64,]$Y3 <- NULL
+data[65,]$Y3 <- mean(lb15[lb15=="Brazil",]$LR)
+data[66,]$Y3 <- mean(lb16[lb16=="Brazil",]$LR)
+
+data[67,]$Y3 <- mean(lb95[lb95=="Chile",]$LR)
+data[68,]$Y3 <- mean(lb96[lb96=="Chile",]$LR)
+data[69,]$Y3 <- mean(lb97[lb97=="Chile",]$LR)
+data[70,]$Y3 <- mean(lb98[lb98=="Chile",]$LR)
+data[71,]$Y3 <- NULL
+data[72,]$Y3 <- mean(lb00[lb00=="Chile",]$LR)
+data[73,]$Y3 <- mean(lb01[lb01=="Chile",]$LR)
+data[74,]$Y3 <- mean(lb02[lb02=="Chile",]$LR)
+data[75,]$Y3 <- mean(lb03[lb03=="Chile",]$LR)
+data[76,]$Y3 <- mean(lb04[lb04=="Chile",]$LR)
+data[77,]$Y3 <- mean(lb05[lb05=="Chile",]$LR)
+data[78,]$Y3 <- mean(lb06[lb06=="Chile",]$LR)
+data[79,]$Y3 <- mean(lb07[lb07=="Chile",]$LR)
+data[80,]$Y3 <- mean(lb08[lb08=="Chile",]$LR)
+data[81,]$Y3 <- mean(lb09[lb09=="Chile",]$LR)
+data[82,]$Y3 <- mean(lb10[lb10=="Chile",]$LR)
+data[83,]$Y3 <- mean(lb11[lb11=="Chile",]$LR)
+data[84,]$Y3 <- NULL
+data[85,]$Y3 <- mean(lb13[lb13=="Chile",]$LR)
+data[86,]$Y3 <- NULL
+data[87,]$Y3 <- mean(lb15[lb15=="Chile",]$LR)
+data[88,]$Y3 <- mean(lb16[lb16=="Chile",]$LR)
+
+data[89,]$Y3 <- NULL
+data[90,]$Y3 <- mean(lb96[lb96=="Colombia",]$LR)
+data[91,]$Y3 <- mean(lb97[lb97=="Colombia",]$LR)
+data[92,]$Y3 <- mean(lb98[lb98=="Colombia",]$LR)
+data[93,]$Y3 <- NULL
+data[94,]$Y3 <- mean(lb00[lb00=="Colombia",]$LR)
+data[95,]$Y3 <- mean(lb01[lb01=="Colombia",]$LR)
+data[96,]$Y3 <- mean(lb02[lb02=="Colombia",]$LR)
+data[97,]$Y3 <- mean(lb03[lb03=="Colombia",]$LR)
+data[98,]$Y3 <- mean(lb04[lb04=="Colombia",]$LR)
+data[99,]$Y3 <- mean(lb05[lb05=="Colombia",]$LR)
+data[100,]$Y3 <- mean(lb06[lb06=="Colombia",]$LR)
+data[101,]$Y3 <- mean(lb07[lb07=="Colombia",]$LR)
+data[102,]$Y3 <- mean(lb08[lb08=="Colombia",]$LR)
+data[103,]$Y3 <- mean(lb09[lb09=="Colombia",]$LR)
+data[104,]$Y3 <- mean(lb10[lb10=="Colombia",]$LR)
+data[105,]$Y3 <- mean(lb11[lb11=="Colombia",]$LR)
+data[106,]$Y3 <- NULL
+data[107,]$Y3 <- mean(lb13[lb13=="Colombia",]$LR)
+data[108,]$Y3 <- NULL
+data[109,]$Y3 <- mean(lb15[lb15=="Colombia",]$LR)
+data[110,]$Y3 <- mean(lb16[lb16=="Colombia",]$LR)
+
+data[111,]$Y3 <- NULL
+data[112,]$Y3 <- mean(lb96[lb96=="Ecuador",]$LR)
+data[113,]$Y3 <- mean(lb97[lb97=="Ecuador",]$LR)
+data[114,]$Y3 <- mean(lb98[lb98=="Ecuador",]$LR)
+data[115,]$Y3 <- NULL
+data[116,]$Y3 <- mean(lb00[lb00=="Ecuador",]$LR)
+data[117,]$Y3 <- mean(lb01[lb01=="Ecuador",]$LR)
+data[118,]$Y3 <- mean(lb02[lb02=="Ecuador",]$LR)
+data[119,]$Y3 <- mean(lb03[lb03=="Ecuador",]$LR)
+data[120,]$Y3 <- mean(lb04[lb04=="Ecuador",]$LR)
+data[121,]$Y3 <- mean(lb05[lb05=="Ecuador",]$LR)
+data[122,]$Y3 <- mean(lb06[lb06=="Ecuador",]$LR)
+data[123,]$Y3 <- mean(lb07[lb07=="Ecuador",]$LR)
+data[124,]$Y3 <- mean(lb08[lb08=="Ecuador",]$LR)
+data[125,]$Y3 <- mean(lb09[lb09=="Ecuador",]$LR)
+data[126,]$Y3 <- mean(lb10[lb10=="Ecuador",]$LR)
+data[127,]$Y3 <- mean(lb11[lb11=="Ecuador",]$LR)
+data[128,]$Y3 <- NULL
+data[129,]$Y3 <- mean(lb13[lb13=="Ecuador",]$LR)
+data[130,]$Y3 <- NULL
+data[131,]$Y3 <- mean(lb15[lb15=="Ecuador",]$LR)
+data[132,]$Y3 <- mean(lb16[lb16=="Ecuador",]$LR)
+
+data[133,]$Y3 <- mean(lb95[lb95=="Mexico",]$LR)
+data[134,]$Y3 <- mean(lb96[lb96=="Mexico",]$LR)
+data[135,]$Y3 <- mean(lb97[lb97=="Mexico",]$LR)
+data[136,]$Y3 <- mean(lb98[lb98=="Mexico",]$LR)
+data[137,]$Y3 <- NULL
+data[138,]$Y3 <- mean(lb00[lb00=="Mexico",]$LR)
+data[139,]$Y3 <- mean(lb01[lb01=="Mexico",]$LR)
+data[140,]$Y3 <- mean(lb02[lb02=="Mexico",]$LR)
+data[141,]$Y3 <- mean(lb03[lb03=="Mexico",]$LR)
+data[142,]$Y3 <- mean(lb04[lb04=="Mexico",]$LR)
+data[143,]$Y3 <- mean(lb05[lb05=="Mexico",]$LR)
+data[144,]$Y3 <- mean(lb06[lb06=="Mexico",]$LR)
+data[145,]$Y3 <- mean(lb07[lb07=="Mexico",]$LR)
+data[146,]$Y3 <- mean(lb08[lb08=="Mexico",]$LR)
+data[147,]$Y3 <- mean(lb09[lb09=="Mexico",]$LR)
+data[148,]$Y3 <- mean(lb10[lb10=="Mexico",]$LR)
+data[149,]$Y3 <- mean(lb11[lb11=="Mexico",]$LR)
+data[150,]$Y3 <- NULL
+data[151,]$Y3 <- mean(lb13[lb13=="Mexico",]$LR)
+data[152,]$Y3 <- NULL
+data[153,]$Y3 <- mean(lb15[lb15=="Mexico",]$LR)
+data[154,]$Y3 <- mean(lb16[lb16=="Mexico",]$LR)
+
+data[155,]$Y3 <- mean(lb95[lb95=="Paraguay",]$LR)
+data[156,]$Y3 <- mean(lb96[lb96=="Paraguay",]$LR)
+data[157,]$Y3 <- mean(lb97[lb97=="Paraguay",]$LR)
+data[158,]$Y3 <- mean(lb98[lb98=="Paraguay",]$LR)
+data[159,]$Y3 <- NULL
+data[160,]$Y3 <- mean(lb00[lb00=="Paraguay",]$LR)
+data[161,]$Y3 <- mean(lb01[lb01=="Paraguay",]$LR)
+data[162,]$Y3 <- mean(lb02[lb02=="Paraguay",]$LR)
+data[163,]$Y3 <- mean(lb03[lb03=="Paraguay",]$LR)
+data[164,]$Y3 <- mean(lb04[lb04=="Paraguay",]$LR)
+data[165,]$Y3 <- mean(lb05[lb05=="Paraguay",]$LR)
+data[166,]$Y3 <- mean(lb06[lb06=="Paraguay",]$LR)
+data[167,]$Y3 <- mean(lb07[lb07=="Paraguay",]$LR)
+data[168,]$Y3 <- mean(lb08[lb08=="Paraguay",]$LR)
+data[169,]$Y3 <- mean(lb09[lb09=="Paraguay",]$LR)
+data[170,]$Y3 <- mean(lb10[lb10=="Paraguay",]$LR)
+data[171,]$Y3 <- mean(lb11[lb11=="Paraguay",]$LR)
+data[172,]$Y3 <- NULL
+data[173,]$Y3 <- mean(lb13[lb13=="Paraguay",]$LR)
+data[174,]$Y3 <- NULL
+data[175,]$Y3 <- mean(lb15[lb15=="Paraguay",]$LR)
+data[176,]$Y3 <- mean(lb16[lb16=="Paraguay",]$LR)
+
+data[177,]$Y3 <- mean(lb95[lb95=="Peru",]$LR)
+data[178,]$Y3 <- mean(lb96[lb96=="Peru",]$LR)
+data[179,]$Y3 <- mean(lb97[lb97=="Peru",]$LR)
+data[180,]$Y3 <- mean(lb98[lb98=="Peru",]$LR)
+data[181,]$Y3 <- NULL
+data[182,]$Y3 <- mean(lb00[lb00=="Peru",]$LR)
+data[183,]$Y3 <- mean(lb01[lb01=="Peru",]$LR)
+data[184,]$Y3 <- mean(lb02[lb02=="Peru",]$LR)
+data[185,]$Y3 <- mean(lb03[lb03=="Peru",]$LR)
+data[186,]$Y3 <- mean(lb04[lb04=="Peru",]$LR)
+data[187,]$Y3 <- mean(lb05[lb05=="Peru",]$LR)
+data[188,]$Y3 <- mean(lb06[lb06=="Peru",]$LR)
+data[189,]$Y3 <- mean(lb07[lb07=="Peru",]$LR)
+data[190,]$Y3 <- mean(lb08[lb08=="Peru",]$LR)
+data[191,]$Y3 <- mean(lb09[lb09=="Peru",]$LR)
+data[192,]$Y3 <- mean(lb10[lb10=="Peru",]$LR)
+data[193,]$Y3 <- mean(lb11[lb11=="Peru",]$LR)
+data[194,]$Y3 <- NULL
+data[195,]$Y3 <- mean(lb13[lb13=="Peru",]$LR)
+data[196,]$Y3 <- NULL
+data[197,]$Y3 <- mean(lb15[lb15=="Peru",]$LR)
+data[198,]$Y3 <- mean(lb16[lb16=="Peru",]$LR)
+
+data[199,]$Y3 <- mean(lb95[lb95=="Uruguay",]$LR)
+data[200,]$Y3 <- mean(lb96[lb96=="Uruguay",]$LR)
+data[201,]$Y3 <- mean(lb97[lb97=="Uruguay",]$LR)
+data[202,]$Y3 <- mean(lb98[lb98=="Uruguay",]$LR)
+data[203,]$Y3 <- NULL
+data[204,]$Y3 <- mean(lb00[lb00=="Uruguay",]$LR)
+data[205,]$Y3 <- mean(lb01[lb01=="Uruguay",]$LR)
+data[206,]$Y3 <- mean(lb02[lb02=="Uruguay",]$LR)
+data[207,]$Y3 <- mean(lb03[lb03=="Uruguay",]$LR)
+data[208,]$Y3 <- mean(lb04[lb04=="Uruguay",]$LR)
+data[209,]$Y3 <- mean(lb05[lb05=="Uruguay",]$LR)
+data[210,]$Y3 <- mean(lb06[lb06=="Uruguay",]$LR)
+data[211,]$Y3 <- mean(lb07[lb07=="Uruguay",]$LR)
+data[212,]$Y3 <- mean(lb08[lb08=="Uruguay",]$LR)
+data[213,]$Y3 <- mean(lb09[lb09=="Uruguay",]$LR)
+data[214,]$Y3 <- mean(lb10[lb10=="Uruguay",]$LR)
+data[215,]$Y3 <- mean(lb11[lb11=="Uruguay",]$LR)
+data[216,]$Y3 <- NULL
+data[217,]$Y3 <- mean(lb13[lb13=="Uruguay",]$LR)
+data[218,]$Y3 <- NULL
+data[219,]$Y3 <- mean(lb15[lb15=="Uruguay",]$LR)
+data[220,]$Y3 <- mean(lb16[lb16=="Uruguay",]$LR)
+
+data[221,]$Y3 <- mean(lb95[lb95=="Venezuela",]$LR)
+data[222,]$Y3 <- mean(lb96[lb96=="Venezuela",]$LR)
+data[223,]$Y3 <- mean(lb97[lb97=="Venezuela",]$LR)
+data[224,]$Y3 <- mean(lb98[lb98=="Venezuela",]$LR)
+data[225,]$Y3 <- NULL
+data[226,]$Y3 <- mean(lb00[lb00=="Venezuela",]$LR)
+data[227,]$Y3 <- mean(lb01[lb01=="Venezuela",]$LR)
+data[228,]$Y3 <- mean(lb02[lb02=="Venezuela",]$LR)
+data[229,]$Y3 <- mean(lb03[lb03=="Venezuela",]$LR)
+data[230,]$Y3 <- mean(lb04[lb04=="Venezuela",]$LR)
+data[231,]$Y3 <- mean(lb05[lb05=="Venezuela",]$LR)
+data[232,]$Y3 <- mean(lb06[lb06=="Venezuela",]$LR)
+data[233,]$Y3 <- mean(lb07[lb07=="Venezuela",]$LR)
+data[234,]$Y3 <- mean(lb08[lb08=="Venezuela",]$LR)
+data[235,]$Y3 <- mean(lb09[lb09=="Venezuela",]$LR)
+data[236,]$Y3 <- mean(lb10[lb10=="Venezuela",]$LR)
+data[237,]$Y3 <- mean(lb11[lb11=="Venezuela",]$LR)
+data[238,]$Y3 <- NULL
+data[239,]$Y3 <- mean(lb13[lb13=="Venezuela",]$LR)
+data[240,]$Y3 <- NULL
+data[241,]$Y3 <- mean(lb15[lb15=="Venezuela",]$LR)
+data[242,]$Y3 <- mean(lb16[lb16=="Venezuela",]$LR)
+
+Data <- subset(data, Y1!=0)
+
+```
+
+```{r, message=F, warning=F, echo=F}
+# Packages
+
+library(ggplot2)
+library(plm)
+library(dotwhisker)
+library(broom)
+library(dplyr)
+```
+
+
+# Introduction
+
+The democratic third wave have generated a big political impact in Latin America. The region used to coups and military rule gave room to vibrant democracies with competitive elections and reasonable political and economic stability.  It is natural to suppose that this new democratic reality generate a impact in the way the general population identify itself politically.
+
+This initial research try to address this issue. We analyze the degree of politicization and polarization in eleven countries of the region: Argentina, Bolivia, Brazil, Chile, Colombia, Ecuador, Mexico, Paraguay, Peru, Uruguay and Venezuela.. 
+
+We divided this blog post in three sections. The first is this small introduction. Second, is a brief a theoretical presentation and justification of the use of the data. Third, we will present a fixed effect analysis of the data to better comprehend the trends in the data. 
+
+# The importance of Left and Right
+
+The definition of polarization and politicization is not so trivial as it may appears. Is it feasible to define ideologies in a multidimensional issue spaces where the set of preferences are so diverse? How can we cope such diversity in a unidimensional continuum of Left and Right?
+
+First, the Left and Right concepts are old and well-known. They are commonly acknowledge as the expression of political preferences. Second, they are vague enough to be able to represent many ideas. Therefore, 'Left' and 'Right' are important as self-identification concepts; a way to manifest your political position, identity.
+
+In this scenario, we can divide individuals in two groups. First, the politically indifferent ($_{R}I_{L}$). This is a person which manifesting any ideology does not generate a utility that justify the cost of taking a stand. The person do not see that taking a political identity as something relevant. Second, the politically eager ($_{R}R_{L} \ \textrm{or} \ _{L}R_{R}$). The cases where the individual understand that she receive some utility if she manifest some political identity either 'Left' or 'Right'.  
+  
+We aim to to use data from the Latinobarometro to assert the degree of polarization in Latin America. To do so, we will use the variable of 
+'self identification of 'Left-Right'. We manipulate this data to indicate that goes from -5 to 5 where -5 is extreme left and 5 is extreme right. We do that with the assumption that the people which have not identify themselves with from -1 to -5 or from 1 to 5 are the non-ideological individuals ^[We consider in this group not only the ones who have answer 0 (5 in the original data, but all the other answers (e.g `I don't know') not only because this type of answer suits well with the argument of ideological indifference, but, also, makes the result presented more robust)]. From this data, we present the model as follow, Where $X_{i}$ is the observations:
+
+\begingroup
+\addtolength{\jot}{5em}
+\begin{align}
+Y_{1}&=\frac{\Sigma |X_{i}|}{n} \\
+Y_{2}&=\sqrt{\frac{\Sigma (X_{i}-\overline{X})^2}{n-1}}
+\end{align}
+\endgroup
+
+$Y_{1}$ is the mean of the absolute value of the `self-identification of Left-Right'. This means the level of politicization in a given country since is the distance, on average, that the country s from 0 ($_{R}I_{L}$). $Y_{2}$ is the standard error which indicate the degree of ideological polarization in a given country. Both values goes from 0 to, approximately, 5. 
+
+Although 'politicization' and 'polarization' seems, at the first glance, synonymous; they are independent concepts. We can imagine a society made by three individuals illustrated in set A (A=$\{$-5,-5,-5$\}$). Here the degree of politicization ($Y_{1}$) is 5, but the degree of polarization is 0. The set B (B=$\{$1,0,-1$\}$), in turn, have a $Y_{1}$ of only 0.667, but a $Y_{2}$ of 1. It is possible to have a high politicization and a low and polarization and, vice-versa.
+
+Empirically, it is reasonable to think of societies becoming more or less politicized without changing their degree of polarization. For example, the society as a whole assuming a Left's or Right's identity. In Latin America, one could say that similar situation might have happen recently with the `Pink tide', a sequence of of left-wing presidents taking power. To put this assumption to a test, we plot the correlation between politicization and polarization:
+
+```{r, echo=FALSE}
+ggplot(data=Data, aes(x=Y2, y=Y1))+geom_point()+geom_smooth(method = lm)+labs(x="Polarization", y="Politicization")+
+  ggtitle("Graph 01: Correlation between politicization and polarization")
+```
+
+
+As we can see, there is a strong correlation between the two. This, on one hand, generate evidences against the assumption of a Latin America's move to the Left. On the other hand, the strong correlation allow us to use polarization as a proxy for polarization (and vice-versa). Therefore, we you only use the variable polarization for the rest of this post. There are three different explanatory frameworks we present to understand polarization in Latin America.
+
+
+First, socio-economic factors. We will use GDP per capita growth (annual %) and Gini. the former analyzes whether the variance of well-being affect polarization and the latter if more unequal or more equal societies are more prone to be polarized. Second,political factors. We will use the data from Polity an ordinal variable where 0 is to non-Left governments, 1 moderate left-wing governments and 2 is radical left-wing governments.The definition of what were the moderate and radical left-wing governments comes from Castañeda (2006)^[Castaneda, Jorge G. "Latin America's Left Turn." Foreign Affairs. 14 Mar. 2018. Web. 14 Mar. 2018.]. The first allows us to assert the impact of being more or less democratic to polarization; and the second to assert if the the recent left-wing governments in Latin America have generated more polarization.		
+
+# The evolution of Latin America's political polarization
+
+The first question that we must make is if have any trend the political polarization in Latin America:
+
+```{r, echo=F}
+ggplot(data=Data, aes(x=year, y=Y2))+geom_point()+geom_smooth(method = lm)+labs(x="Year", y="Polarization")+
+  ggtitle("Graph 02: Polarization in Latin America (1995-2016)")
+```
+
+The graph 02, in fact, is hiding a more complex pattern that goes along with the recent Latin America history. Dividing the period in three moments we see a pendulum behavior that goes along with period before the 'pink tide', the peak of the left-wing governments and the current political and economic crisis:
+
+```{r, echo=FALSE}
+ggplot(data=Data, aes(x=year, y=Y2))+
+  geom_point()+geom_smooth(method = lm)+
+  labs(x="Year", y="Polarization")+
+  facet_grid(.~YearDiff, scales = "free", as.table=F)+
+  theme(strip.text.x = element_blank())+
+  ggtitle("Graph 03: Polarization in Latin America in three moments")
+
+```
+
+Hence, we will now present an data panel analysis with the variable for each of the periods to understand what factor better explain polarization in Latin America. First, 1995 to 2001:
+
+```{r, echo=FALSE, warning=FALSE}
+
+Data2 <- Data
+
+Data2$Y1 <- NULL
+Data2$Y3 <- NULL
+
+pdata <- pdata.frame(Data2, index=c("country","year"))
+
+g4 <- NA
+g4 <- plm(Y2~polity2+left+gdpgrowth+gini, data=pdata[pdata$YearDiff==0,], model="within")
+
+dwplot(g4)%>%
+  relabel_predictors(c(left="Left governments",
+                       gdpgrowth= "GDP per capita growth",
+                       polity2="Polity",
+                       gini="GINI"))+
+  xlab("Coefficient Estimate") +
+  ggtitle("Graph 04: Polarization in Latin America (1995-2001)")+
+  geom_vline(xintercept = 0, color="black", linetype=2)+
+  theme(legend.position="none")+ xlim(-.4, .4)
+
+```
+
+This is a moment in Latin America before the peak of the 'Pink tide', mostly ruled by pro-market governments. This, in part, explain the high variance of the variable 'Left governments'. The only variable with significance is the Gini index, indicating that more unequal societies make them more polarized. Inequality is a very poignant topic in Latin America due to the fact, in the period, was the mos unequal region in the world(IMF^[source: http://www.imf.org/external/pubs/ft/fandd/2015/09/lustig.htm]. It reasonable to assume that inequality is one key factor causing polarization in the region.
+
+```{r, echo=FALSE, warning=FALSE, message=F}
+g5 <- plm(Y2~polity2+left+gdpgrowth+gini, data=pdata[pdata$YearDiff==1,], model="within")
+
+dwplot(g5)%>%
+  relabel_predictors(c(left="Left governments",
+                       gdp="GDP per capita",
+                       gdpgrowth= "GDP per capita growth",
+                       polity2="Polity",
+                       gini="GINI",
+                       stability="Political stability"))+
+  xlab("Coefficient Estimate") +
+  ggtitle("Graph 05: Polarization in Latin America (2002-2008)")+
+  geom_vline(xintercept = 0, color="black", linetype=2)+
+  theme(legend.position="none")+ xlim(-.4, .4)
+```
+
+This is period is high tide of the 'pink tide'. Once again the left left governments variable not only is not significant, but also have a major variance. This highlight the diversity the way the left governments were interpreted by the population in very distinct ways, opposing the common idea of two lefts in the region. Similarly, the polity variance demonstrate the beginning of decay in the Latin American institutions. Once again, Gini index is the only variable with significant correlation in polarization. Once again it makes us affirm the social and political importance of inequality in Latin America.
+
+```{r, echo=FALSE, warning=FALSE, message=F}
+g6 <- plm(Y2~polity2+left+gdpgrowth+gini, data=pdata[pdata$YearDiff==2,], model="within")
+
+dwplot(g6)%>%
+  relabel_predictors(c(left="Left governments",
+                       gdp="GDP per capita",
+                       gdpgrowth= "GDP per capita growth",
+                       polity2="Polity",
+                       gini="GINI",
+                       stability="Political stability"))+
+  xlab("Coefficient Estimate") +
+  ggtitle("Graph 06: Polarization in Latin America (2009-2016)")+
+  geom_vline(xintercept = 0, color="black", linetype=2)+
+  theme(legend.position="none")+ xlim(-.4, .4)
+```
+
+finally, the recent years. This is a moment of burst of the left-wing governments. The current economic and political crisis have lead to the fall of 'pink tide' presidents. Then, makes sense to understand that the polarization is caused by economic factors. Also, we see how the political variable have a massive variance, indicating the political diversity in the region.
+
+The three periods indicate the preponderance of economic factors - especially Gini - to understand the polarization variations in Latin America. To give more one more input, let's analyze the panel data for the entire period:
+
+
+```{r, echo=FALSE, warning=FALSE, message=F}
+g7 <- plm(Y2~polity2+left+gdpgrowth+gini, data=pdata, model="within")
+
+dwplot(g7)%>%
+  relabel_predictors(c(left="Left governments",
+                       gdp="GDP per capita",
+                       gdpgrowth= "GDP per capita growth",
+                       polity2="Polity",
+                       gini="GINI",
+                       stability="Political stability"))+
+  xlab("Coefficient Estimate") +
+  ggtitle("Polarization in Latin America (1995-2016)")+
+  geom_vline(xintercept = 0, color="black", linetype=2)+
+  theme(legend.position="none")+ xlim(-.4, .4)
+```
+
+Only the GDP per capita and Gini are significant, indicating the economic preponderance to estimulate the polulation towards political action in comparison to ideational factors such as party ideology. In addition, this initial data of the topic goes along the arguments presented by Roberts (2015)^[Roberts, Kenneth M. 2015. Changing Course in Latin America Party Systems in the Neoliberal Era]
+
